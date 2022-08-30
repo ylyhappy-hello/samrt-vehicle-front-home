@@ -1,0 +1,36 @@
+{
+  "name": "router",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vee-validate/i18n": "^4.6.6",
+    "@vee-validate/rules": "^4.6.6",
+    "axios": "^0.27.2",
+    "lodash": "^4.17.21",
+    "vee-validate": "^4.5.8",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.4",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.184",
+    "@types/node": "^18.7.11",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "autoprefixer": "^10.4.8",
+    "path": "^0.12.7",
+    "postcss": "^8.4.16",
+    "sass": "^1.54.5",
+    "stylelint": "^14.11.0",
+    "stylelint-config-standard": "^28.0.0",
+    "tailwindcss": "^3.1.8",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.7",
+    "vue-tsc": "^0.39.5"
+  }
+}

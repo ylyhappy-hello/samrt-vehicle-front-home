@@ -14,7 +14,7 @@ async function onSubmit(values: any) {
   // const { data: { token } } = await userApi.login(values)
   const { data: { token }, type } = await userApi.login()
   store.set('token', {
-    expire: 3600,
+    expire: 360000,
     token
   })
   if (type == 'success') {

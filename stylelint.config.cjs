@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ["stylelint-config-standard"],
+  "extends": "stylelint-config-recommended-vue/scss",
   rules: {
     "at-rule-no-unknown": [
       true,

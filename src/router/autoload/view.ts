@@ -14,7 +14,7 @@ const isoViews = import.meta.glob('../views/*.vue', {
   import: 'default',
   eager: true,
 });
-function getRoutes() {
+export function getRoutes() {
   const routes = [] as RouteRecordRaw[];
   // view下 获取布局路由
   Object.entries(layouts).forEach(([file, module]) => {
@@ -51,6 +51,4 @@ function getRouteByModule(file: string, module: unknown) {
   Object.assign(route, (module as any).route);
   return route;
 }
-const routes = env.VITE_ROUTE_AUTOLOAD ? getRoutes() : ([] as RouteRecordRaw[]);
 
-export default routes;

@@ -11,6 +11,7 @@ specifiers:
   element-plus: ^2.2.15
   lodash: ^4.17.21
   path: ^0.12.7
+  pinia: ^2.0.21
   postcss: ^8.4.16
   postcss-html: ^1.5.0
   sass: ^1.54.5
@@ -32,6 +33,7 @@ dependencies:
   axios: 0.27.2
   element-plus: 2.2.15_vue@3.2.37
   lodash: 4.17.21
+  pinia: 2.0.21_j6bzmzd4ujpabbp5objtwxyjp4
   vee-validate: 4.5.8_vue@3.2.37
   vue: 3.2.37
   vue-router: 4.1.4_vue@3.2.37
@@ -1582,6 +1584,24 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /pinia/2.0.21_j6bzmzd4ujpabbp5objtwxyjp4:
+    resolution: {integrity: sha512-6ol04PtL29O0Z6JHI47O3JUSoyOJ7Og0rstXrHVMZSP4zAldsQBXJCNF0i/H7m8vp/Hjd/CSmuPl7C5QAwpeWQ==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.2.1
+      typescript: 4.7.4
+      vue: 3.2.37
+      vue-demi: 0.13.11_vue@3.2.37
+    dev: false
+
   /postcss-html/1.5.0:
     resolution: {integrity: sha512-kCMRWJRHKicpA166kc2lAVUGxDZL324bkj/pVOb6RhjB0Z5Krl7mN0AsVkBhVIRZZirY0lyQXG38HCVaoKVNoA==}
     engines: {node: ^12 || >=14}
@@ -2159,7 +2179,6 @@ packages:
     resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: true
 
   /update-browserslist-db/1.0.5_browserslist@4.21.3:
     resolution: {integrity: sha512-dteFFpCyvuDdr9S/ff1ISkKt/9YZxKjI9WlRR99c180GaztJtRa/fn18FdxGVKVsnPY7/a/FDN68mcvUmP4U7Q==}

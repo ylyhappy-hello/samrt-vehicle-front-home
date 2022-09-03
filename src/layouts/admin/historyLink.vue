@@ -8,9 +8,9 @@ const links = ref<{ title: string }[]>([
 ])
 </script>
 <template>
-<div class="hidden md:block">
-  <div class="m-4 grid grid-flow-col gap-2 justify-start">
-    <a href="" v-for="(link, index) of links" class="bg-white rounded-md py-2 px-3 text-sm text-gray-600" :key="index">{{link.title}}
+<div class="hidden md:block bg-gray-50 px-4 py-2 shadow-sm border-b">
+  <div class="grid grid-flow-col gap-2 justify-start rounded-sm ">
+    <a href="" v-for="(link, index) of links" class="border-2 bg-white hover:bg-violet-500 duration-300 rounded-md py-2 px-3 text-sm text-gray-600" :key="index">{{link.title}}
       <i class="fas fa-xmark ml-2"></i>
     </a>
   </div>

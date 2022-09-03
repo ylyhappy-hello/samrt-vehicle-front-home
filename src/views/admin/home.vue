@@ -40,10 +40,24 @@ nextTick(() => {
       </section>
     </el-card>
   </div>
-  <div class="bg-white p-3 mt-5">
+  <div class="mt-6">
     <div class="flex space-y-2 flex-col md:space-x-2 md:space-y-0 md:flex-row">
-      <div id="echart1" class="flex-1 h-80" />
-      <div id="echart2" class="flex-1 h-80" />
+      <el-card shadow="hover" :body-style="{ padding: '20px' }" class="flex-1">
+        <template #header>
+          <div>
+            <span>用户统计</span>
+          </div>
+        </template>
+        <div id="echart1" class="w-full h-72"/>
+      </el-card>
+      <el-card shadow="hover" :body-style="{ padding: '20px' }" class="flex-1">
+        <template #header>
+          <div>
+            <span>销售量</span>
+          </div>
+        </template>
+        <div id="echart2" class="w-full h-72"/>
+      </el-card>
     </div>
   </div>
 </template>

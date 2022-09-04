@@ -1,6 +1,9 @@
+import { CacheEnum } from './../enum/cacheEnum';
 import { RouteLocationNormalized, Router } from 'vue-router';
-import { store } from '@/utils';
-import user from '@/store/user';
+import user from '@/store/userStore';
+import utils from '@/utils';
+import menuStore from '@/store/menuStore';
+const { store } = utils;
 class Guard {
   constructor(private router: Router) {}
   public run() {
@@ -20,14 +23,16 @@ class Guard {
     }
   }
   private token(): string | null {
-    return store.get('token')?.token;
+    return store.get(CacheEnum.TOKEN_NAME);
   }
   private isLogin(route: RouteLocationNormalized) {
-    const token: any = store.get('token');
-    return Boolean(!route.meta?.auth || (route.meta.auth && this.token()));
+    const state = Boolean(!route.meta?.auth || (route.meta.auth && this.token()));
+    if (!state) { 
+      utils.store.set(CacheEnum.REDIRECT_ROUTE_NAME,route.name)
+    }
+    return state;
   }
   private isGuest(route: RouteLocationNormalized) {
-    const token: any = store.get('token');
     return Boolean(!route.meta?.guest || (route.meta.guest && !this.token()));
   }
 }

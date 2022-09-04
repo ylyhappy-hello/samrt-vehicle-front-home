@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { router } from '@/store/router';
-import { RouteRecordNormalized, RouteRecordRaw, useRouter } from 'vue-router';
-const routeService = useRouter();
-const routerStore = router();
+import { router } from '@/router';
+import menuStore from '@/store/menuStore';
+menuStore().init();
+const menus = menuStore().menus;
 const resetMenus = () => {
-  routerStore.routes.forEach(proute => {
-    proute.meta.active = false;
-    proute.children?.forEach(croute => {
-      if (croute.meta) {
-        croute.meta.active = false;
+  menus.forEach(pmenu => {
+    pmenu.active = false;
+    pmenu.children?.forEach(cmenu => {
+      if (cmenu) {
+        cmenu.active = false;
       }
     })
   })
 }
-const handle = (proute: RouteRecordNormalized, croute?: RouteRecordRaw) => {
+const handle = (pmenu: IMenu, cmenu?: Menu) => {
   resetMenus();
-  proute.meta.active = true;
-  if (croute && croute.meta) {
-    croute.meta.active = true;
-    routeService.push(croute);
+  pmenu.active = true;
+  if (cmenu) {
+    cmenu.active = true;
+    router.push({ name: cmenu.routeName });
   }
 }
 </script>
@@ -30,19 +30,18 @@ const handle = (proute: RouteRecordNormalized, croute?: RouteRecordRaw) => {
     </div>
     <!-- 菜单 -->
     <div class="left-container">
-      <dl v-for="(route, index) of routerStore.routes" :key="index">
-        <dt @click="handle(route)">
+      <dl v-for="(menu, index) of menus" :key="index">
+        <dt @click="handle(menu)">
           <section class="flex items-center">
-            <i :class="route.meta.icon" class="left-icon"></i>
-            <span>{{ route.meta.title }}</span>
+            <i :class="menu.icon" class="left-icon"></i>
+            <span>{{ menu.title }}</span>
           </section>
           <section>
-            <i class="fas fa-angle-down duration-300" :class="{ 'rotate-180': route.meta.active }"></i>
+            <i class="fas fa-angle-down duration-300" :class="{ 'rotate-180': menu.active }"></i>
           </section>
         </dt>
-        <dd @click="handle(route, croute)" v-show="route.meta.active" :class="{ active: croute?.meta?.active }"
-          v-for="(croute, index) of route.children" :key="index">
-          {{ croute?.meta?.title }}</dd>
+        <dd @click="handle(menu, cmenu)" v-show="menu.active" :class="{ active: cmenu?.active }" v-for="(cmenu, index) of menu.children" :key="index">
+          {{ cmenu?.title }}</dd>
       </dl>
     </div>
   </div>

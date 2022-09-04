@@ -1,4 +1,4 @@
 import env from './env';
 import store from './store';
-
-export { env, store };
+import * as user from './user';
+export default { env, store, user };

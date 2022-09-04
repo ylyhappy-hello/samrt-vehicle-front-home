@@ -12,7 +12,7 @@ function info() {
 interface userLogin {
   token: string;
 }
-function login() {
+function login(values: any) {
   return http.request<userLogin>({
     url: 'login',
     method: 'post',

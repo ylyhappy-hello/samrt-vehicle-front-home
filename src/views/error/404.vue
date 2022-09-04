@@ -12,7 +12,7 @@
         <p class="text-2xl md:text-3xl font-light leading-normal"><strong>Page Not Found</strong></p>
         <br />
         <br />
-        <p class="mb-8">Check if the search term is correct. If you think this is an error, contact support <strong>Thanks!</strong>
+        <p class="mb-8">Check if the search term is correct. If you think this is an error, contact <strong>2778335016@qq.com</strong> to support <strong>Thanks!</strong>
           <br />
         </p>
         <a onclick="location.reload()" class="y-a">Reload</a>

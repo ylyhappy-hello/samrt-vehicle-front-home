@@ -1,26 +1,13 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import v from '@/plugins/validate';
-import userApi from '@/apis/user'
-import { store } from '@/utils'
+import utils from '@/utils'
 const { Form, Field, ErrorMessage } = v;
 const schema = {
   account: { required: true, email: true },
   password: { required: true, min: 8, max: 20 },
 };
-const router = useRouter();
 async function onSubmit(values: any) {
-  console.log("values", values)
-  // const { data: { token } } = await userApi.login(values)
-  const { data: { token }, type } = await userApi.login()
-  store.set('token', {
-    expire: 360000,
-    token
-  })
-  if (type == 'success') {
-    console.log("执行路由跳转")
-    router.push({ name: 'home' })
-  }
+  utils.user.login(values);
 }
 </script>
 <template>

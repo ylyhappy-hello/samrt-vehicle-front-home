@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import menuStore from '@/store/menuStore';
-const menus = menuStore().historyMenu
+import menuStore from '@/Composables/menuStore';
+const menus = menuStore.history.value;
 </script>
 <template>
   <div class="hidden md:block bg-gray-50 px-3 py-2 shadow-sm border-b">
@@ -9,7 +9,7 @@ const menus = menuStore().historyMenu
         class="border-2 bg-white hover:bg-violet-500 duration-300 rounded-md py-2 px-3 text-sm text-gray-600" :key="index">
         <router-link :to="{ name: menu.routeName }">{{ menu.title }}</router-link>
         <i class="fas fa-xmark ml-2 hover:text-yellow-500 hover:rotate-90 hover:bg-red-500 rounded-sm duration-200"
-          @click="menuStore().removeHistoryMenu(menu)"></i>
+          @click="menuStore.removeHistoryMenu(menu)"></i>
       </div>
     </div>
   </div>
@@ -17,4 +17,5 @@ const menus = menuStore().historyMenu
 <style scoped lang="scss">
 
 </style>
-
+  
+  

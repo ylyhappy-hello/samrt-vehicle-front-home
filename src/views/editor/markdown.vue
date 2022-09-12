@@ -1,6 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Editor from '@/components/markdown/editor.vue'
+</script>
 <template>
-<h1>这是markdown编辑器</h1>
+  <div class="h-full">
+    <Editor/>
+  </div>
 </template>
 <style scoped lang="scss">
 

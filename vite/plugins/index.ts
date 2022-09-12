@@ -1,7 +1,9 @@
 import vue from '@vitejs/plugin-vue';
 import { Plugin } from 'vite';
+import { setupElementImport } from './element';
 export function setupPlugins(isBuild: boolean, env: viteEnv) {
-  const plugins: Plugin[] = [vue()];
+  let plugins: Plugin[] = [vue()];
+  plugins = [...plugins,...setupElementImport()]
   return plugins;
 }
 

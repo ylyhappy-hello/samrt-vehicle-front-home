@@ -1,4 +1,3 @@
-import { env } from '@/utils';
 import { RouteRecordRaw } from 'vue-router';
 const layouts = import.meta.glob('../layouts/*.vue', {
   import: 'default',

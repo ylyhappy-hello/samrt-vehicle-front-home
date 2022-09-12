@@ -1,17 +1,30 @@
 <script setup lang="ts">
 import userStore from '@/store/userStore'
 import utils from '@/utils';
+import menuStore from '@/Composables/menuStore';
+import Notification from '../components/notification.vue';
+import Breadcrumb from '@/components/breadcrumb.vue';
 const user = userStore();
+
+const close = menuStore.close;
+function fullScreen() {
+  document.documentElement.requestFullscreen();
+}
 </script>
 <template>
   <div class="bg-white w-full p-4 flex justify-between items-center">
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>富文本编辑器</el-breadcrumb-item>
-    </el-breadcrumb>
+    <div class="flex justify-center items-center">
+      <div @click="menuStore.toggleState" class="cursor-pointer">
+        <i class="fas fa-align-left text-lg text-gray-900 mr-2" v-if="close"></i>
+        <i class="fas fa-align-right text-lg text-gray-900 mr-2" v-else></i>
+      </div>
+      <Breadcrumb class="hidden md:block" />
+    </div>
     <div class="flex justify-center items-center relative group cursor-pointer mr-5">
-      <img :src="user.info?.avatar" class="w-8 h-8 rounded-full object-cover">
-      <span class="text-sm text-gray-600 w-auto ml-1">{{user.info?.name}}</span>
+      <Notification class="mr-4" />
+      <i class="fas fa-border-none mr-3 text-lg" @click="fullScreen" />
+      <img :src="user.info?.avatar" class="w-8 h-8 rounded-full object-cover" />
+      <span class="text-sm text-gray-600 w-auto ml-1">{{ user.info?.name }}</span>
       <section class="left-0.5 group-hover:block absolute translate-y-full bg-white shadow-sm px-3 whitespace-nowrap border rounded-md hidden mb-16">
         <div class="flex items-center cursor-pointer border-b py-1">
           <a class="fas fa-folder-open"></a>

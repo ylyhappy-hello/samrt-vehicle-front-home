@@ -12,7 +12,8 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "paths": {"@/*":["./src/*"]}
+    "paths": {"@/*":["./src/*"]},
+    "types": ["lodash","echarts","element-plus/global"],
   },
   "include": [
     "src/**/*.ts",

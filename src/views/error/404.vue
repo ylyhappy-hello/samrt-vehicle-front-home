@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
-  <title>Error 404</title>
   <div class="min-h-screen w-full bg-white flex items-center">
+    <title>Error 404</title>
     <div class="container flex flex-col md:flex-row items-center justify-center px-5 text-gray-700">
       <div class="max-w-md">
         <div class="text-5xl font-dark font-bold">Uppsss...
@@ -12,7 +12,8 @@
         <p class="text-2xl md:text-3xl font-light leading-normal"><strong>Page Not Found</strong></p>
         <br />
         <br />
-        <p class="mb-8">Check if the search term is correct. If you think this is an error, contact <strong>2778335016@qq.com</strong> to support <strong>Thanks!</strong>
+        <p class="mb-8">Check if the search term is correct. If you think this is an error, contact <strong>2778335016@qq.com</strong> to support
+          <strong>Thanks!</strong>
           <br />
         </p>
         <a onclick="location.reload()" class="y-a">Reload</a>

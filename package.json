@@ -17,6 +17,7 @@
     "lodash": "^4.17.21",
     "pinia": "^2.0.21",
     "vee-validate": "^4.5.8",
+    "@vue/runtime-core": "^3.3.4",
     "vue": "^3.2.37",
     "vue-router": "^4.1.4",
     "yup": "^0.32.11"

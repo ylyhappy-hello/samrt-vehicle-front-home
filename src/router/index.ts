@@ -8,6 +8,6 @@ export const router = createRouter({
   routes: [...routes, ...layoutRoutes],
 });
 export function setupRouter(app: App) {
-  guard(router)
+  // guard(router)
   app.use(router);
 }

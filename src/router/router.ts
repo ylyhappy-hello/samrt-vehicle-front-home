@@ -7,15 +7,15 @@ export const routes = [
     component: () => import('@/views/home.vue'),
     meta: { auth: true },
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/auth/login.vue'),
-    meta: { guest: true },
-  },
-  {
-    path: '/:any(.*)',
-    name: 'notFound',
-    component: () => import('@/views/error/404.vue'),
-  },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   component: () => import('@/views/auth/login.vue'),
+  //   meta: { guest: true },
+  // },
+  // {
+  //   path: '/:any(.*)',
+  //   name: 'notFound',
+  //   component: () => import('@/views/error/404.vue'),
+  // },
 ] as RouteRecordRaw[];

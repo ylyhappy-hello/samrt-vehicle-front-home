@@ -7,7 +7,7 @@ type MouseEventLeaveHandler = Parameters<
   typeof HTMLElement.prototype.addEventListener<'mouseleave'>
 >[1];
 //这个是 局部 自定义指令 v-hover
-const vHoverFactory = (
+export const vHoverFactory = (
   mouseenterHandler: MouseEventEnterHandler,
   mouselaeveHandler: MouseEventLeaveHandler
 ) => {
@@ -31,4 +31,4 @@ export const vHiddenHoverFactory = (flag: ReturnType<typeof ref>) => {
     flag.value = false
   })
 }
-
+ 

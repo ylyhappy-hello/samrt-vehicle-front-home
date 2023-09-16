@@ -1,12 +1,31 @@
 <script setup lang="ts">
-import { CSSProperties, onMounted, ref } from 'vue';
+import { vHiddenHoverFactory, vHoverFactory } from '@/directive';
+import { resetTimer } from '@/utils/timer';
+import { add, flatMap } from 'lodash';
+import { CSSProperties, onMounted, ref, unref } from 'vue';
 // 最多5张图片
+// 实际第一张显示的图片是数组里面的第二张图片
 const cards = ref([
-  'http://smart.ylyhappy.cn/wKZUkWTjFQuAD_qLAABw5v2aElM811.png',
-  'http://smart.ylyhappy.cn/wKZUkWToRhmAZxeRAAD2M-1eIgI912.jpg',
-  'http://smart.ylyhappy.cn/wKZUkWTjFQuAD_qLAABw5v2aElM811.png',
-  'http://smart.ylyhappy.cn/wKZUkWToRhmAZxeRAAD2M-1eIgI912.jpg',
-  'http://smart.ylyhappy.cn/wKZUkWTjFQuAD_qLAABw5v2aElM811.png',
+  {
+    img: '/src/assets/5.png',
+    title: '我是一张图片'
+  },
+  {
+    img: '/src/assets/1.png',
+    title: '我是一张图片'
+  },
+  {
+    img: '/src/assets/2.png',
+    title: '我是一张图片'
+  },
+  {
+    img: '/src/assets/3.png',
+    title: '我是一张图片'
+  },
+  {
+    img: '/src/assets/4.png',
+    title: '我是一张图片'
+  },
 ]);
 const innerStyles = ref<CSSProperties>({});
 const inner = ref<HTMLElement>();
@@ -16,84 +35,193 @@ const setStep = () => {
   const innerWidth = inner.value!!.scrollWidth; // ❶
   const totalCards = cards.value.length;
   // step.value = `${innerWidth / totalCards}px`; // ❷
-  step.value = '14em';
-  console.log(step.value)
+  step.value = '256px';
+  console.log(step.value);
 };
-const moveLeft = () => {
+const moveLeft = (_step: string) => {
   innerStyles.value = {
-    transform: `translateX(-${step.value}) translateX(-${step.value})`,
+    transform: `translateX(-${step.value}) translateX(-${_step})`,
   };
 };
-const moveRight = () => {
+const moveRight = (_step: string) => {
   innerStyles.value = {
-    transform: `translateX(${step.value})
-                translateX(-${step.value})`,
+    transition: '.3s',
+    transform: `translateX(-${step.value}) translateX(${_step})`,
   };
 };
 const afterTransition = (callback: Function) => {
   const listener = () => {
-    console.log('ok')
+    console.log('ok');
+    console.log(cards.value);
     callback();
     inner.value!!.removeEventListener('transitionend', listener);
   };
   inner.value!!.addEventListener('transitionend', listener);
 };
-const next = () => {
-  console.log('正在移动', transitioning.value)
-  console.log(inner.value)
-  if (transitioning.value) return;
-  transitioning.value = true;
-  moveLeft(); // ❸
-  afterTransition(() => {
-    const card = cards.value.shift();
-    cards.value.push(card!!);
-    resetTranslate()
-    transitioning.value = false;
-  });
+const addIdx = () => {
+  currentIdx.value++;
+  if (currentIdx.value > cards.value.length - 1) {
+    currentIdx.value = 0;
+  }
 };
-const resetTranslate = () => {
+const subIdx = () => {
+  currentIdx.value--;
+  if (currentIdx.value < 0) {
+    currentIdx.value = cards.value.length - 1;
+  }
+};
+const next = () => {
+  addIdx();
+  move();
+  // if (transitioning.value) return;
+  // addIdx();
+  // transitioning.value = true;
+  // moveLeft(step.value); // ❸
+  // afterTransition(() => {
+  //   const card = cards.value.shift();
+  //   cards.value.push(card!!);
+  //   resetTranslate(step.value);
+  //   transitioning.value = false;
+  // });
+};
+const move = (next = true, steps = 1, post=() => {}) => {
+  if (transitioning.value) return;
+  post()
+  const curStep = `${steps * 256}px`;
+  transitioning.value = true;
+  if (next) {
+    moveLeft(curStep); // ❸
+    afterTransition(() => {
+      const cardCache: any[] = [];
+      for (let i = 1; i <= steps; i++) {
+        cardCache.push(cards.value.shift()!!);
+      }
+      cards.value = [...cards.value, ...cardCache];
+      resetTranslate(`256px`);
+      transitioning.value = false;
+    });
+  } else {
+    moveRight(curStep); // ❸
+    afterTransition(() => {
+      let cardCache: any[] = [];
+      for (let i = 1; i <= steps; i++) {
+        cardCache = [cards.value.pop()!!,...cardCache]
+      }
+      console.log('cache', cardCache)
+      cards.value = [...cardCache, ...cards.value];
+      resetTranslate(`256px`);
+      transitioning.value = false;
+    });
+  }
+};
+
+const prev = () => {
+  subIdx();
+  move(false);
+  // if (transitioning.value) return;
+  // subIdx();
+  // transitioning.value = true;
+  // moveRight(step.value); // ❸
+  // afterTransition(() => {
+  //   const card = cards.value.pop();
+  //   cards.value = [card!!, ...cards.value];
+  //   resetTranslate(step.value);
+  //   transitioning.value = false;
+  // });
+};
+const resetTranslate = (step: string) => {
   innerStyles.value = {
     transition: 'none',
-    transform: `translateX(-${step.value})`,
+    transform: `translateX(-${step})`,
   };
 };
+/**
+ * 生成计时器，自动播放轮播图
+ */
+const timer = resetTimer(() => {
+  if (!isHover.value) {
+    next();
+  }
+}, 2500);
+const isHover = ref(false);
+const vHiddenHover = vHiddenHoverFactory(isHover);
+const vHover = (idx: number) =>
+  vHoverFactory(
+    (e) => {
+      currentIdx.value = idx;
+    },
+    () => {}
+  );
 onMounted(() => {
-  setStep()
-  resetTranslate();
+  setStep();
+  resetTranslate(step.value);
+  // timer();
 });
+const test = (targetIdx: number) => {
+  const sub = targetIdx - 1 - currentIdx.value;
+  const setIdx = () => currentIdx.value = targetIdx - 1;
+  if (sub > 0) {
+    move(true, sub, setIdx);
+  } else {
+    move(false, Math.abs(sub), setIdx);
+  }
+};
+const itemNums = unref(cards.value.length);
 const currentIdx = ref(0);
 </script>
 <template>
-  <div class="carousel">
+  <div v-hidden-hover class="carousel">
+    <div class="contron-btn-group">
+      <span
+        class="contron-btn"
+        :class="{ active: idx - 1 === currentIdx }"
+        v-for="idx in itemNums"
+        @mouseenter="test(idx)"
+      >
+        {{ idx }}</span
+      >
+    </div>
     <div ref="inner" class="inner" :style="innerStyles">
       <div class="card" v-for="(card, idx) in cards" :key="idx">
-        <img class="w-56 h-56" :src="card"/>
+        <img class="w-[100%] h-[208px]" :src="card.img" />
+        <!-- 遮罩层 -->
+        <div class="mask">
+          <span class="relative left-2 top-1">{{ card.title }}</span>
+        </div>
       </div>
     </div>
   </div>
-  <button>prev</button>
+  <button @click="prev">prev</button>
   <button @click="next">next</button>
+  <button @click="next">currentIdx:{{ currentIdx }}</button>
 </template>
 <style scoped lang="scss">
 .carousel {
-  @apply w-56;
+  @apply w-[256px] relative;
   overflow: hidden; /* ❷ */
+  .contron-btn-group {
+    @apply absolute h-4 bottom-5 right-[1.5rem] z-20;
+    .contron-btn {
+      @apply w-4 h-4 leading-4 rounded-md mx-[0.1rem] bg-gray-400 bg-opacity-60 px-[0.4rem];
+      &.active {
+        @apply bg-white;
+      }
+    }
+  }
+  .mask {
+    @apply absolute bg-opacity-60 bg-black w-[100%] h-[70px] bottom-0;
+  }
+  .card {
+    @apply inline-flex rounded-[4px] items-center justify-center;
+    display: inline-flex;
+    background-color: #39b1bd;
+    color: white;
+  }
 }
 
 .inner {
   white-space: nowrap; /* ❸ */
-  transition: transform .5s;
-}
-
-.card {
-  @apply w-56 h-56;
-  display: inline-flex;
-
-  background-color: #39b1bd;
-  color: white;
-  border-radius: 4px;
-  align-items: center;
-  justify-content: center;
+  transition: transform 1s;
 }
 
 /* optional */

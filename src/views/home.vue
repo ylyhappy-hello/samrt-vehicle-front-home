@@ -39,10 +39,8 @@ const places = [
 ];
 </script>
 <template>
-  <div class="w-[100%] h-28 bg-blue-700">
-    <div
-      class="w-[100%] flex text-sm justify-between h-7 border-b-[0.5px] border-white border-opacity-20 px-[30em] leading-7"
-    >
+  <div class="w-[100%] flex flex-col items-center h-28 bg-blue-700">
+    <div class="w-[960px] text-sm justify-between h-7 leading-7 flex">
       <div
         v-hover
         class="flex items-center w-72"
@@ -56,7 +54,7 @@ const places = [
         <span class="text-orange-300">北京市</span>
         <div
           v-show="placeSelectFlag"
-          class="absolute border-l-[0.5px] border-r-[0.5px] border-b-[0.5px] shadow-sm top-[1.6em] bg-white w-[30.1em] flex flex-wrap"
+          class="absolute z-40 border-l-[0.5px] border-r-[0.5px] border-b-[0.5px] shadow-sm top-[1.6em] bg-white w-[30.1em] flex flex-wrap"
         >
           <div
             class="w-[7em] text-center px-1 hover:bg-gray-200"
@@ -85,8 +83,9 @@ const places = [
         </div>
       </div>
     </div>
-    <div class="flex text-white justify-between px-[26em]">
-      <div class="w-96 h-20 flex text-left items-center">
+    <div class="w-[100%] border-b-[0.5px] border-white border-opacity-20"></div>
+    <div class="flex text-white justify-between w-[960px]">
+      <div class="w-96 h-24 flex text-left items-center">
         <img class="w-16" src="/vite.svg" />
         <div class="flex flex-col">
           <span class="text-2xl font-bold">交通安全综合服务管理平台</span>
@@ -106,9 +105,9 @@ const places = [
         </ul>
       </div>
     </div>
-  </div>
-  <div class="px-[26em]">
-    <home_content></home_content>
+    <div class="w-[960px]">
+      <home_content></home_content>
+    </div>
   </div>
 </template>
 <style scoped lang="scss">

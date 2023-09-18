@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { vHiddenHoverFactory } from '@/directive';
 import { ref } from 'vue';
+import { vHiddenHoverFactory } from '@/directive';
 import home_content from './home_content.vue';
+import YlyCard from './YlyCard.vue';
+import YlyCardHead from './YlyCardHead.vue';
+import ImgButton from './ImgButton.vue';
 const placeSelectFlag = ref(false);
 const vHover = vHiddenHoverFactory(placeSelectFlag);
 const places = [
@@ -40,7 +43,7 @@ const places = [
 </script>
 <template>
   <div class="w-[100%] flex flex-col items-center h-28 bg-blue-700">
-    <div class="w-[960px] text-sm justify-between h-7 leading-7 flex">
+    <div class="w-[1000px] text-sm justify-between h-7 leading-7 flex">
       <div
         v-hover
         class="flex items-center w-72"
@@ -84,7 +87,7 @@ const places = [
       </div>
     </div>
     <div class="w-[100%] border-b-[0.5px] border-white border-opacity-20"></div>
-    <div class="flex text-white justify-between w-[960px]">
+    <div class="flex text-white justify-between w-[1000px]">
       <div class="w-96 h-24 flex text-left items-center">
         <img class="w-16" src="/vite.svg" />
         <div class="flex flex-col">
@@ -105,8 +108,50 @@ const places = [
         </ul>
       </div>
     </div>
-    <div class="w-[960px]">
-      <home_content></home_content>
+    <div class="w-[1000px] flex">
+      <div class="w-[750px] h-[600px] flex flex-wrap">
+        <home_content></home_content>
+        <YlyCard />
+        <YlyCard title="警示教育" />
+        <YlyCard title="业务热点" />
+        <YlyCard title="信息公告" />
+        <YlyCard title="信息公布" />
+        <img class="w-[240px] h-[70px]" src="../assets/wfcl.png" />
+        <img class="w-[240px] h-[70px] ml-3" src="../assets/hpyx.png" />
+        <img class="w-[240px] h-[70px] ml-3" src="../assets/ksyy.png" />
+        <div
+          class="w-[750px] bg-[#eff4f9] text-[#2C66A8] h-[40px] text-lg leading-[40px] rounded-md"
+        >
+          <span class="ml-2">机动车业务</span>
+          <ImgButton />
+        </div>
+      </div>
+      <div class="flex flex-col w-[250px]">
+        <YlyCardHead
+          title="公式公告"
+          :data="[{ title: '严重交通违法行为公开公示' }]"
+        />
+        <YlyCardHead
+          title="信息查询"
+          :data="[{ title: '机动车违法/驾驶证记分查询' }]"
+        />
+        <YlyCardHead title="便民工具" :data="[{ title: '车检计算器' }]" />
+        <YlyCardHead
+          title="友情链接"
+          :data="[
+            { title: '中华人民共和国公安部' },
+            { title: '公安部交通管理科学研究所' },
+            { title: '北京市交通委员会' },
+            { title: '北京市公安局公安交通管理局' },
+            { title: '北京市保险行业协会' },
+            { title: '北京市公安局公安交通管理局电子票据系统' },
+          ]"
+        />
+        <YlyCardHead
+          title="联系方式"
+          :data="[{ title: '机动车违法/驾驶证记分查询' }]"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -115,7 +160,7 @@ const places = [
   @apply hover:bg-green-600 hover:text-white py-1 px-2 transition-all border-white border-opacity-20 border-l-[0.5px];
 }
 .banner-tabs li {
-  @apply relative top-2 font-bold transition-all hover:text-orange-300 mx-2;
+  @apply relative top-2 font-bold transition-all hover:text-orange-300 ml-4;
   &.active {
     @apply pb-4 border-b-4 text-orange-300 border-orange-300;
   }
@@ -124,5 +169,6 @@ const places = [
 <script lang="ts">
 export default {
   route: { name: 'home', path: '/' },
+  components: { YlyCard, YlyCardHead },
 };
 </script>

@@ -35,7 +35,7 @@ const setStep = () => {
   const innerWidth = inner.value!!.scrollWidth; // ❶
   const totalCards = cards.value.length;
   // step.value = `${innerWidth / totalCards}px`; // ❷
-  step.value = '256px';
+  step.value = '250px';
   console.log(step.value);
 };
 const moveLeft = (_step: string) => {
@@ -97,7 +97,7 @@ const move = (next = true, steps = 1, post=() => {}) => {
         cardCache.push(cards.value.shift()!!);
       }
       cards.value = [...cards.value, ...cardCache];
-      resetTranslate(`256px`);
+      resetTranslate(`250px`);
       transitioning.value = false;
     });
   } else {
@@ -109,7 +109,7 @@ const move = (next = true, steps = 1, post=() => {}) => {
       }
       console.log('cache', cardCache)
       cards.value = [...cardCache, ...cards.value];
-      resetTranslate(`256px`);
+      resetTranslate(`250px`);
       transitioning.value = false;
     });
   }
@@ -155,7 +155,7 @@ const vHover = (idx: number) =>
 onMounted(() => {
   setStep();
   resetTranslate(step.value);
-  // timer();
+  timer();
 });
 const test = (targetIdx: number) => {
   const sub = targetIdx - 1 - currentIdx.value;
@@ -191,13 +191,10 @@ const currentIdx = ref(0);
       </div>
     </div>
   </div>
-  <button @click="prev">prev</button>
-  <button @click="next">next</button>
-  <button @click="next">currentIdx:{{ currentIdx }}</button>
 </template>
 <style scoped lang="scss">
 .carousel {
-  @apply w-[256px] relative;
+  @apply w-[250px] h-[208px] relative;
   overflow: hidden; /* ❷ */
   .contron-btn-group {
     @apply absolute h-4 bottom-5 right-[1.5rem] z-20;
@@ -214,7 +211,6 @@ const currentIdx = ref(0);
   .card {
     @apply inline-flex rounded-[4px] items-center justify-center;
     display: inline-flex;
-    background-color: #39b1bd;
     color: white;
   }
 }

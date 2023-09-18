@@ -1,0 +1,7 @@
+@for $i from 1 through 4 {
+
+  .icon-car-#{$i} {
+    background-image: "../assets/icon.png";
+    background-position: $i * -57px -17px;
+  }
+}

@@ -4,6 +4,10 @@ import { vHiddenHoverFactory } from '@/directive';
 import home_content from './home_content.vue';
 import YlyCard from './YlyCard.vue';
 import YlyCardHead from './YlyCardHead.vue';
+import Vehicle from './Vehicle.vue';
+import DriverLicense from './DriverLicense.vue';
+import Illegal from './Illegal.vue';
+import StudyEducation from './StudyEducation.vue';
 import ImgButton from './ImgButton.vue';
 const placeSelectFlag = ref(false);
 const vHover = vHiddenHoverFactory(placeSelectFlag);
@@ -42,7 +46,8 @@ const places = [
 ];
 </script>
 <template>
-  <div class="w-[100%] flex flex-col items-center h-28 bg-blue-700">
+  <div class="w-[100%] flex flex-col items-center h-28 bg-[#1d53b5]">
+    <!-- 头部 -->
     <div class="w-[1000px] text-sm justify-between h-7 leading-7 flex">
       <div
         v-hover
@@ -108,8 +113,9 @@ const places = [
         </ul>
       </div>
     </div>
+    <!-- 正文 -->
     <div class="w-[1000px] flex">
-      <div class="w-[750px] h-[600px] flex flex-wrap">
+      <div class="w-[750px] flex flex-wrap">
         <home_content></home_content>
         <YlyCard />
         <YlyCard title="警示教育" />
@@ -119,12 +125,11 @@ const places = [
         <img class="w-[240px] h-[70px]" src="../assets/wfcl.png" />
         <img class="w-[240px] h-[70px] ml-3" src="../assets/hpyx.png" />
         <img class="w-[240px] h-[70px] ml-3" src="../assets/ksyy.png" />
-        <div
-          class="w-[750px] bg-[#eff4f9] text-[#2C66A8] h-[40px] text-lg leading-[40px] rounded-md"
-        >
-          <span class="ml-2">机动车业务</span>
-          <ImgButton />
-        </div>
+        <div class="h-[100px]"></div>
+        <Vehicle />
+        <DriverLicense />
+        <Illegal />
+        <StudyEducation />
       </div>
       <div class="flex flex-col w-[250px]">
         <YlyCardHead
@@ -147,10 +152,60 @@ const places = [
             { title: '北京市公安局公安交通管理局电子票据系统' },
           ]"
         />
-        <YlyCardHead
-          title="联系方式"
-          :data="[{ title: '机动车违法/驾驶证记分查询' }]"
-        />
+        <YlyCardHead title="联系方式" :data="[]" />
+        <ul class="text-[#999] ml-2 text-sm">
+          <li>北京市公安局交通管理局</li>
+          <li>地址：北京市西城区阜成门北大街1号</li>
+          <li>邮编：100037</li>
+          <li>业务咨询电话：010-12123</li>
+          <li>业务监督电话：010-122</li>
+          <li>在线缴款微信、支付宝渠道咨询：95595</li>
+          <li>在线缴款银联卡渠道咨询：95588</li>
+        </ul>
+      </div>
+    </div>
+    <!-- 尾部 -->
+    <div
+      class="w-[100%] flex flex-col items-center justify-center bg-[#0d419d] text-white"
+    >
+      <ul class="flex w-[1000px] my-4">
+        <li class="w-[200px] text-lg text-white text-center border-r-[1px]">
+          首页
+        </li>
+        <li class="w-[200px] text-lg text-[#979797] text-center border-r-[1px]">
+          业务办理
+        </li>
+        <li class="w-[200px] text-lg text-[#979797] text-center border-r-[1px]">
+          服务导航
+        </li>
+        <li class="w-[200px] text-lg text-[#979797] text-center border-r-[1px]">
+          公告公布
+        </li>
+        <li class="w-[200px] text-lg text-[#979797] text-center border-r-[1px]">
+          APP下载
+        </li>
+        <li class="w-[200px] text-lg text-[#979797] text-center border-r-[1px]">
+          办事指南
+        </li>
+      </ul>
+      <div class="w-[1000px] flex">
+        <ul class="w-[750px] text-xs">
+          <li class="my-2">
+            建议您使用IE9+、FireFox、Google
+            Chrome，分辨率1280*800及以上浏览本网站，获得更好用户体验。
+          </li>
+          <li class="my-2">
+            版权所有 © 2015-2022 公安机关交通管理部门官方发布 V1.29.3
+          </li>
+          <li class="my-2">苏ICP备06012607号-2 <img class="h-[20px] w-[20px] inline-block" src="../assets/vue.svg" /> 苏公网安备 32021102000598号</li>
+        </ul>
+        <ul class="flex justify-center items-center space-x-2 w-[250px]">
+          <li><img class="w-[110px] h-[55px]" src="../assets/jiucuo.png" /></li>
+          <li> 
+            <img class="w-[70px] h-[70px]" src="../assets/gabjtkys2.jpg" />
+          </li>
+          <li><img class="w-[70px] h-[70px]" src="../assets/jtaqwfb.jpg" /></li>
+        </ul>
       </div>
     </div>
   </div>

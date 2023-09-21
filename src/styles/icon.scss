@@ -1,7 +1,22 @@
+$count: -60px;
 @for $i from 1 through 4 {
-
-  .icon-car-#{$i} {
-    background-image: "../assets/icon.png";
-    background-position: $i * -57px -17px;
+  @for $j from 1 through 8{
+    .icon-car-#{$i}-#{$j} {
+      @apply w-[70px] h-[50px];
+      background-image: url(../assets/icon.png);
+      background-position: $count ($j - 1) * -88px + -35px;
+    }
   }
+  $count: calc($count + -100px + ($i - 1) * -20px);
+}
+.icon-car-1-8{
+  @apply w-[70px] h-[50px];
+  background-image: url(../assets/icon.png);
+  background-position: -60px -630px;
+}
+
+.icon-car-1-9{
+  @apply w-[70px] h-[50px];
+  background-image: url(../assets/icon.png);
+  background-position: -60px -710px;
 }

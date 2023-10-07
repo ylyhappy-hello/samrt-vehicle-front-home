@@ -5,7 +5,7 @@ type DataItem = {
 };
 type Props = {
   title: string
-  data: DataItem[];
+  data?: DataItem[];
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<Props>(), {
       <li class="card-li" v-for="(item, idx) in props.data" :key="idx">
         <i class="absolute left-[10px] bottom-1">.</i>
         <span class="w-[20px] inline-block"></span>
-        <span>{{ item.title }}</span>
+        <span class="hover:underline text-ellipsis whitespace-nowrap h-[20px] leading-[20px] w-[180px] inline-block overflow-hidden">{{ item.title }}</span>
         <span class="absolute right-1">{{ item.publish_time }}</span>
       </li>
     </ul>

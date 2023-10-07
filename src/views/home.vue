@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { vHiddenHoverFactory } from '@/directive';
 import home_content from './home_content.vue';
+import Carousel from '@/components/home/Carousel.vue';
 import YlyCard from './YlyCard.vue';
 import YlyCardHead from './YlyCardHead.vue';
 import Vehicle from './Vehicle.vue';
@@ -9,6 +10,9 @@ import DriverLicense from './DriverLicense.vue';
 import Illegal from './Illegal.vue';
 import StudyEducation from './StudyEducation.vue';
 import ImgButton from './ImgButton.vue';
+import { transportationNote } from '@/apis';
+import { timesimp2str } from '@/utils/time';
+import { CarouselVueProps } from '@/components/componentsProps';
 const placeSelectFlag = ref(false);
 const vHover = vHiddenHoverFactory(placeSelectFlag);
 const places = [
@@ -44,6 +48,31 @@ const places = [
   '宁夏',
   '新疆',
 ];
+/**
+ * 交管咨询数据获取
+ */
+const transportNote = ref<any>();
+const carousel = reactive<CarouselVueProps>({
+  loading: true,
+  options: [],
+})
+onMounted(() => {
+  transportationNote().then((res) => {
+    transportNote.value = (res.data || []).map((e) => {
+      return {
+        publish_time: timesimp2str(e.publishTime),
+        title: e.title,
+      };
+    });
+    carousel.options = (res.data || []).map((e) => {
+      return {
+        img: e.bannerUrl,
+        title: e.title,
+      };
+    });
+    carousel.loading = false;
+  });
+});
 </script>
 <template>
   <div class="w-[100%] flex flex-col items-center h-28 bg-[#1d53b5]">
@@ -116,8 +145,8 @@ const places = [
     <!-- 正文 -->
     <div class="w-[1000px] flex">
       <div class="w-[750px] flex flex-wrap">
-        <home_content></home_content>
-        <YlyCard />
+        <Carousel v-loading :options="carousel.options" :loading="carousel.loading"/>
+        <YlyCard title="交管咨询" :data="transportNote" />
         <YlyCard title="警示教育" />
         <YlyCard title="业务热点" />
         <YlyCard title="信息公告" />

@@ -11,10 +11,15 @@ declare module '@vue/runtime-core' {
     FormYA: typeof import('./../src/components/form/YA.vue')['default']
     FormYButton: typeof import('./../src/components/form/YButton.vue')['default']
     FormYInput: typeof import('./../src/components/form/YInput.vue')['default']
+    HomeCarousel: typeof import('./../src/components/home/Carousel.vue')['default']
+    HomeHome_content: typeof import('./../src/components/home/home_content.vue')['default']
     MarkdownEditor: typeof import('./../src/components/markdown/editor.vue')['default']
     Notification: typeof import('./../src/components/notification.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     WangEditorEditor: typeof import('./../src/components/wangEditor/editor.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

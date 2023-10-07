@@ -4,7 +4,7 @@ type ItemType = {
   highlight?: boolean;
 };
 type Prop = {
-  dataItem: ItemType[];
+  dataItem?: ItemType[];
   icon: string;
   iconWidth?: number
   title: string;

@@ -2,20 +2,21 @@
 type DataItem = {
   title: string;
   publish_time: string;
+  to: string;
 };
 type Props = {
-  title: string
+  title: string;
   data?: DataItem[];
 };
 
 const props = withDefaults(defineProps<Props>(), {
   title: '交管咨询',
   data: () => [
-    { title: '我是一条测试', publish_time: '03-23' },
-    { title: '我是一条测试', publish_time: '03-23' },
-    { title: '我是一条测试', publish_time: '03-23' },
-    { title: '我是一条测试', publish_time: '03-23' },
-    { title: '我是一条测试', publish_time: '03-23' },
+    { title: '我是一条测试', publish_time: '03-23', to:"/consult/1" },
+    { title: '我是一条测试', publish_time: '03-23', to:"/consult/1" },
+    { title: '我是一条测试', publish_time: '03-23', to:"/consult/1" },
+    { title: '我是一条测试', publish_time: '03-23', to:"/consult/1" },
+    { title: '我是一条测试', publish_time: '03-23', to:"/consult/1" },
   ],
 });
 </script>
@@ -29,7 +30,12 @@ const props = withDefaults(defineProps<Props>(), {
       <li class="card-li" v-for="(item, idx) in props.data" :key="idx">
         <i class="absolute left-[10px] bottom-1">.</i>
         <span class="w-[20px] inline-block"></span>
-        <span class="hover:underline text-ellipsis whitespace-nowrap h-[20px] leading-[20px] w-[180px] inline-block overflow-hidden">{{ item.title }}</span>
+        <RouterLink :to="item.to">
+          <span
+            class="hover:underline text-ellipsis whitespace-nowrap h-[20px] leading-[20px] w-[180px] inline-block overflow-hidden"
+            >{{ item.title }}</span
+          >
+        </RouterLink>
         <span class="absolute right-1">{{ item.publish_time }}</span>
       </li>
     </ul>

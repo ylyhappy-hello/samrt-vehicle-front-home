@@ -13,6 +13,11 @@ export const routes = [
   //   component: () => import('@/views/auth/login.vue'),
   //   meta: { guest: true },
   // },
+  {
+    path: '/consult/:id',
+    name: "cosultDetail",
+    component: () => import('@/views/article/index.vue'),
+  },
   // {
   //   path: '/:any(.*)',
   //   name: 'notFound',

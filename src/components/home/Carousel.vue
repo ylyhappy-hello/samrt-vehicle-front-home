@@ -27,8 +27,8 @@ const inner = ref<HTMLElement>();
 const step = ref('');
 const transitioning = ref(false);
 const setStep = () => {
-  const innerWidth = inner.value!!.scrollWidth; // ❶
-  const totalCards = cards.value.length;
+  // const innerWidth = inner.value!!.scrollWidth; // ❶
+  // const totalCards = cards.value.length;
   // step.value = `${innerWidth / totalCards}px`; // ❷
   step.value = '250px';
   console.log(step.value);
@@ -155,7 +155,6 @@ const test = (targetIdx: number) => {
     move(false, Math.abs(sub), setIdx);
   }
 };
-const itemNums = unref(props.options.length);
 const currentIdx = ref(0);
 </script>
 <template>
@@ -164,7 +163,7 @@ const currentIdx = ref(0);
       <span
         class="contron-btn"
         :class="{ active: idx - 1 === currentIdx }"
-        v-for="idx in itemNums"
+        v-for="idx in props.options.length + 1"
         @mouseenter="test(idx)"
       >
         {{ idx }}</span

@@ -1,3 +1,8 @@
+export const Constants = {
+  ConsultNoteKey: (id: number | string) => (`ConsultNoteKey-${id}`),
+}
+
+
 interface IData {
   expire?: number;
   data: any;
@@ -21,7 +26,7 @@ export default {
       return cache.data;
     }
   },
-  remove(key: string) { 
+  remove(key: string) {
     localStorage.removeItem(key);
   }
 };

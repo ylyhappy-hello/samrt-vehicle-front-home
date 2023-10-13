@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
 import { vHiddenHoverFactory } from '@/directive';
-import home_content from './home_content.vue';
 import Carousel from '@/components/home/Carousel.vue';
-import YlyCard from './YlyCard.vue';
+import YlyCard from '@/components/home/YlyCard.vue';
 import YlyCardHead from './YlyCardHead.vue';
 import Vehicle from './Vehicle.vue';
 import DriverLicense from './DriverLicense.vue';
 import Illegal from './Illegal.vue';
 import StudyEducation from './StudyEducation.vue';
-import ImgButton from './ImgButton.vue';
 import { transportationNote } from '@/apis';
 import { timesimp2str } from '@/utils/time';
 import { CarouselVueProps } from '@/components/componentsProps';
+import store, { Constants } from '@/utils/store';
 const placeSelectFlag = ref(false);
 const vHover = vHiddenHoverFactory(placeSelectFlag);
 const places = [
@@ -55,13 +54,15 @@ const transportNote = ref<any>();
 const carousel = reactive<CarouselVueProps>({
   loading: true,
   options: [],
-})
+});
 onMounted(() => {
   transportationNote().then((res) => {
     transportNote.value = (res.data || []).map((e) => {
+      store.set(Constants.ConsultNoteKey(e.id), e.content);
       return {
         publish_time: timesimp2str(e.publishTime),
         title: e.title,
+        to: `consult/${e.id}`,
       };
     });
     carousel.options = (res.data || []).map((e) => {
@@ -145,7 +146,11 @@ onMounted(() => {
     <!-- 正文 -->
     <div class="w-[1000px] flex">
       <div class="w-[750px] flex flex-wrap">
-        <Carousel v-loading :options="carousel.options" :loading="carousel.loading"/>
+        <Carousel
+          v-loading
+          :options="carousel.options"
+          :loading="carousel.loading"
+        />
         <YlyCard title="交管咨询" :data="transportNote" />
         <YlyCard title="警示教育" />
         <YlyCard title="业务热点" />
@@ -226,11 +231,18 @@ onMounted(() => {
           <li class="my-2">
             版权所有 © 2015-2022 公安机关交通管理部门官方发布 V1.29.3
           </li>
-          <li class="my-2">苏ICP备06012607号-2 <img class="h-[20px] w-[20px] inline-block" src="../assets/vue.svg" /> 苏公网安备 32021102000598号</li>
+          <li class="my-2">
+            苏ICP备06012607号-2
+            <img
+              class="h-[20px] w-[20px] inline-block"
+              src="../assets/vue.svg"
+            />
+            苏公网安备 32021102000598号
+          </li>
         </ul>
         <ul class="flex justify-center items-center space-x-2 w-[250px]">
           <li><img class="w-[110px] h-[55px]" src="../assets/jiucuo.png" /></li>
-          <li> 
+          <li>
             <img class="w-[70px] h-[70px]" src="../assets/gabjtkys2.jpg" />
           </li>
           <li><img class="w-[70px] h-[70px]" src="../assets/jtaqwfb.jpg" /></li>

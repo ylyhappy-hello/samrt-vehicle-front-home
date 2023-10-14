@@ -31,3 +31,10 @@ export const places = [
   '宁夏',
   '新疆',
 ];
+
+export const dict_data = {
+  "motocycle_consult": {
+    "1": '交管咨询',
+    "2": '警示教育',
+  }
+}

@@ -3,50 +3,20 @@ import { onMounted, reactive, ref } from 'vue';
 import { vHiddenHoverFactory } from '@/directive';
 import Carousel from '@/components/home/Carousel.vue';
 import YlyCard from '@/components/home/YlyCard.vue';
+import Header from '@/components/home/Header.vue';
+
+import Footer from '@/components/home/Footer.vue';
 import YlyCardHead from './YlyCardHead.vue';
 import Vehicle from './Vehicle.vue';
 import DriverLicense from './DriverLicense.vue';
 import Illegal from './Illegal.vue';
 import StudyEducation from './StudyEducation.vue';
 import { transportationNote } from '@/apis';
-import { timesimp2str } from '@/utils/time';
+import { timesimp2str, timesimp2str2 } from '@/utils/time';
 import { CarouselVueProps } from '@/components/componentsProps';
 import store, { Constants } from '@/utils/store';
 const placeSelectFlag = ref(false);
 const vHover = vHiddenHoverFactory(placeSelectFlag);
-const places = [
-  '北京',
-  '天津',
-  '河北',
-  '山西',
-  '内蒙古',
-  '辽宁',
-  '吉林',
-  '黑龙江',
-  '上海',
-  '江苏',
-  '浙江',
-  '安徽',
-  '福建',
-  '江西',
-  '山东',
-  '河南',
-  '湖北',
-  '湖南',
-  '广东',
-  '广西',
-  '海南',
-  '重庆',
-  '四川',
-  '贵州',
-  '云南',
-  '西藏',
-  '陕西',
-  '甘肃',
-  '青海',
-  '宁夏',
-  '新疆',
-];
 /**
  * 交管咨询数据获取
  */
@@ -58,9 +28,14 @@ const carousel = reactive<CarouselVueProps>({
 onMounted(() => {
   transportationNote().then((res) => {
     transportNote.value = (res.data || []).map((e) => {
-      store.set(Constants.ConsultNoteKey(e.id), e.content);
+      store.set(Constants.ConsultNoteKey(e.id), {
+        publishTime: timesimp2str2(e.publishTime),
+        title: e.title,
+        content: e.content,
+        type: e.type
+      });
       return {
-        publish_time: timesimp2str(e.publishTime),
+        publishTime: timesimp2str(e.publishTime),
         title: e.title,
         to: `consult/${e.id}`,
       };
@@ -77,76 +52,12 @@ onMounted(() => {
 </script>
 <template>
   <div class="w-[100%] flex flex-col items-center h-28 bg-[#1d53b5]">
-    <!-- 头部 -->
-    <div class="w-[1000px] text-sm justify-between h-7 leading-7 flex">
-      <div
-        v-hover
-        class="flex items-center w-72"
-        :class="{ 'bg-white': placeSelectFlag, 'shadow-sm': placeSelectFlag }"
-      >
-        <span
-          class="text-gray-400 ml-2"
-          :class="{ 'text-blue-700': placeSelectFlag }"
-          >切换公安交通管理部门:</span
-        >
-        <span class="text-orange-300">北京市</span>
-        <div
-          v-show="placeSelectFlag"
-          class="absolute z-40 border-l-[0.5px] border-r-[0.5px] border-b-[0.5px] shadow-sm top-[1.6em] bg-white w-[30.1em] flex flex-wrap"
-        >
-          <div
-            class="w-[7em] text-center px-1 hover:bg-gray-200"
-            v-for="item in places"
-          >
-            {{ item }}
-          </div>
-        </div>
-      </div>
-      <div class="flex text-gray-400 text-center text-xs">
-        <div class="banner-bar-item">
-          <i class="fa-solid fa-plus mx-1"></i>
-          <span>用户注册</span>
-        </div>
-        <div class="banner-bar-item">
-          <i class="fa-solid fa-user mx-1"></i>
-          <span>个人登录</span>
-        </div>
-        <div class="banner-bar-item">
-          <i class="fa-solid fa-clipboard-list mx-1"></i>
-          <span>单位登录</span>
-        </div>
-        <div class="banner-bar-item border-r-[0.5px]">
-          <i class="fa-solid fa-user mx-1"></i>
-          <span>个人信息申请</span>
-        </div>
-      </div>
-    </div>
-    <div class="w-[100%] border-b-[0.5px] border-white border-opacity-20"></div>
-    <div class="flex text-white justify-between w-[1000px]">
-      <div class="w-96 h-24 flex text-left items-center">
-        <img class="w-16" src="/vite.svg" />
-        <div class="flex flex-col">
-          <span class="text-2xl font-bold">交通安全综合服务管理平台</span>
-          <span class="text-xs">北京市公安局交通管理局</span>
-        </div>
-      </div>
-      <div class="flex text-right items-center">
-        <!-- <i class="fa-solid fa-user"></i>
-        <span>用户登陆</span> -->
-        <ul class="flex text-xl banner-tabs">
-          <li class="active">首页</li>
-          <li>业务办理</li>
-          <li>服务导航</li>
-          <li>公告公布</li>
-          <li>APP下载</li>
-          <li>办事指南</li>
-        </ul>
-      </div>
-    </div>
+    <Header/>
     <!-- 正文 -->
     <div class="w-[1000px] flex">
       <div class="w-[750px] flex flex-wrap">
         <Carousel
+          class="mt-2"
           v-loading
           :options="carousel.options"
           :loading="carousel.loading"
@@ -199,56 +110,7 @@ onMounted(() => {
       </div>
     </div>
     <!-- 尾部 -->
-    <div
-      class="w-[100%] flex flex-col items-center justify-center bg-[#0d419d] text-white"
-    >
-      <ul class="flex w-[1000px] my-4">
-        <li class="w-[200px] text-lg text-white text-center border-r-[1px]">
-          首页
-        </li>
-        <li class="w-[200px] text-lg text-[#979797] text-center border-r-[1px]">
-          业务办理
-        </li>
-        <li class="w-[200px] text-lg text-[#979797] text-center border-r-[1px]">
-          服务导航
-        </li>
-        <li class="w-[200px] text-lg text-[#979797] text-center border-r-[1px]">
-          公告公布
-        </li>
-        <li class="w-[200px] text-lg text-[#979797] text-center border-r-[1px]">
-          APP下载
-        </li>
-        <li class="w-[200px] text-lg text-[#979797] text-center border-r-[1px]">
-          办事指南
-        </li>
-      </ul>
-      <div class="w-[1000px] flex">
-        <ul class="w-[750px] text-xs">
-          <li class="my-2">
-            建议您使用IE9+、FireFox、Google
-            Chrome，分辨率1280*800及以上浏览本网站，获得更好用户体验。
-          </li>
-          <li class="my-2">
-            版权所有 © 2015-2022 公安机关交通管理部门官方发布 V1.29.3
-          </li>
-          <li class="my-2">
-            苏ICP备06012607号-2
-            <img
-              class="h-[20px] w-[20px] inline-block"
-              src="../assets/vue.svg"
-            />
-            苏公网安备 32021102000598号
-          </li>
-        </ul>
-        <ul class="flex justify-center items-center space-x-2 w-[250px]">
-          <li><img class="w-[110px] h-[55px]" src="../assets/jiucuo.png" /></li>
-          <li>
-            <img class="w-[70px] h-[70px]" src="../assets/gabjtkys2.jpg" />
-          </li>
-          <li><img class="w-[70px] h-[70px]" src="../assets/jtaqwfb.jpg" /></li>
-        </ul>
-      </div>
-    </div>
+    <Footer />
   </div>
 </template>
 <style scoped lang="scss">

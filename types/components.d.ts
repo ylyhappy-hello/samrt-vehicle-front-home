@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     FormYButton: typeof import('./../src/components/form/YButton.vue')['default']
     FormYInput: typeof import('./../src/components/form/YInput.vue')['default']
     HomeCarousel: typeof import('./../src/components/home/Carousel.vue')['default']
+    HomeFooter: typeof import('./../src/components/home/Footer.vue')['default']
     HomeHeader: typeof import('./../src/components/home/Header.vue')['default']
     HomeHome_content: typeof import('./../src/components/home/home_content.vue')['default']
     HomeYlyCard: typeof import('./../src/components/home/YlyCard.vue')['default']

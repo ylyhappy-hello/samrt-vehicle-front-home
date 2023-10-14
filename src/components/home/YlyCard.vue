@@ -1,7 +1,7 @@
 <script setup lang="ts">
 type DataItem = {
   title: string;
-  publish_time: string;
+  publishTime: string;
   to: string;
 };
 type Props = {
@@ -12,11 +12,11 @@ type Props = {
 const props = withDefaults(defineProps<Props>(), {
   title: '交管咨询',
   data: () => [
-    { title: '我是一条测试', publish_time: '03-23', to:"/consult/1" },
-    { title: '我是一条测试', publish_time: '03-23', to:"/consult/1" },
-    { title: '我是一条测试', publish_time: '03-23', to:"/consult/1" },
-    { title: '我是一条测试', publish_time: '03-23', to:"/consult/1" },
-    { title: '我是一条测试', publish_time: '03-23', to:"/consult/1" },
+    { title: '我是一条测试', publishTime: '03-23', to:"/consult/1" },
+    { title: '我是一条测试', publishTime: '03-23', to:"/consult/1" },
+    { title: '我是一条测试', publishTime: '03-23', to:"/consult/1" },
+    { title: '我是一条测试', publishTime: '03-23', to:"/consult/1" },
+    { title: '我是一条测试', publishTime: '03-23', to:"/consult/1" },
   ],
 });
 </script>
@@ -36,7 +36,7 @@ const props = withDefaults(defineProps<Props>(), {
             >{{ item.title }}</span
           >
         </RouterLink>
-        <span class="absolute right-1">{{ item.publish_time }}</span>
+        <span class="absolute right-1">{{ item.publishTime }}</span>
       </li>
     </ul>
   </div>
